@@ -4,10 +4,11 @@ import Home from "./Home.tsx";
 import BookDetails from "./BookDetails.tsx";
 import BooksOverview from "./BooksOverview.tsx";
 import AuthorsOverview from "./Authors.tsx";
+import useInitializeDataForMyApplication from "./initialDataLoadForApplication.tsx";
 
 function App() {
 
-
+useInitializeDataForMyApplication();
     return (
         <>
 

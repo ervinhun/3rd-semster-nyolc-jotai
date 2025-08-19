@@ -1,4 +1,5 @@
-import {useEffect, useState} from "react";
+import {useAtom} from "jotai";
+import {AuthorAtom} from "./BookAtom.ts";
 
 export interface Author {
     id: number
@@ -9,16 +10,7 @@ export interface Author {
 
 export default function AuthorsOverview() {
 
-    const [allAuthors, setAllAuthors] = useState<Author[]>([])
-
-    useEffect(() => {
-        fetch('https://fakerestapi.azurewebsites.net/api/v1/Authors').then(result => {
-            result.json().then(authors => {
-                setAllAuthors(authors);
-            })
-        })
-    }, [])
-
+    const [allAuthors, ] = useAtom(AuthorAtom);
     return (<>
 
         {
