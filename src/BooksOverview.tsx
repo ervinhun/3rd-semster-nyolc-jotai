@@ -1,11 +1,13 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useNavigate} from "react-router";
 import {useAtom} from "jotai";
 import {BookAtom} from "./BookAtom.ts";
 
 export default function BooksOverview() {
+    //const [allBooks, setAllBooks] = useState<Book[]>([])
+    const [allBooks, setAllBooks] = useAtom(BookAtom);
     const navigate = useNavigate();
-    const [allBooks, setAllBooks] = useAtom(BookAtom)
+
     useEffect(() => {
         fetch('https://fakerestapi.azurewebsites.net/api/v1/Books')
             .then(result => {
@@ -13,7 +15,7 @@ export default function BooksOverview() {
                     setAllBooks(allBooks)
                 })
             })
-    }, [setAllBooks])
+    }, [])
 
     return <div>
 
@@ -21,7 +23,8 @@ export default function BooksOverview() {
         {
 
 
-            allBooks.map(book => {
+
+            allBooks?.map(book => {
                 return <div key={book.id!}>
                     <button onClick={() => {
                         navigate('/book/' + book.id)

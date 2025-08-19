@@ -1,5 +1,7 @@
 import {useParams} from "react-router";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {BookAtom} from "./BookAtom.ts";
+import {useAtom} from "jotai";
 
 export type BookIdParameter = {
     bookId: string;
@@ -17,21 +19,22 @@ export interface Book {
 export default function BookDetails() {
 
     const params = useParams<BookIdParameter>();
-    const [currentBook, setCurrentBook] = useState<Book | undefined>()
+    //const [currentBook, setCurrentBook] = useState<Book | undefined>()
+    const [allBooks] = useAtom(BookAtom);
+    //let displayedBook;
 
-    useEffect(() => {
-        fetch('https://fakerestapi.azurewebsites.net/api/v1/Books/' + params.bookId)
-            .then(result => {
-                result.json().then(book => {
-                    setCurrentBook(book);
-                })
-            })
-    }, [])
+    /*allBooks?.forEach(book => {
+        if (book.id === parseInt(params.bookId, 10)) {
+            displayedBook = book;
+        }
+    })*/
+
+    const displayedBook = allBooks?.find(b => b.id == Number.parseInt(params.bookId));
 
     return <div>
 
         {
-            JSON.stringify(currentBook)
+            JSON.stringify(displayedBook)
         }
 
     </div>
